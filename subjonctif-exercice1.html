@@ -145,6 +145,22 @@ function checkAnswers() {
     }
   });
 }
+
+  let score = 0;
+
+        for (let key in answers) {
+            let userAnswer = document.getElementById(key).value.toLowerCase().trim();
+            if (userAnswer === answers[key]) {
+            score++;
+            document.getElementById(key).style.borderColor = "green";
+            } else {
+            document.getElementById(key).style.borderColor = "red";
+            }
+        }
+
+        document.getElementById("result").innerHTML =
+            "Score: " + score + " / 14";
+  
 </script>
 </body>
 </html>
@@ -244,6 +260,22 @@ function checkAnswers() {
     }
   });
 }
+
+  let score = 0;
+
+        for (let key in answers) {
+            let userAnswer = document.getElementById(key).value.toLowerCase().trim();
+            if (userAnswer === answers[key]) {
+            score++;
+            document.getElementById(key).style.borderColor = "green";
+            } else {
+            document.getElementById(key).style.borderColor = "red";
+            }
+        }
+
+        document.getElementById("result").innerHTML =
+            "Score: " + score + " / 10";
+  
 </script>
 </body>
 </html>
