@@ -18,13 +18,80 @@ input { width: 120px; margin: 5px; }
 
 <body>
 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Ibis French FAQ</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Almendra+Display&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Dongle:wght@300;400;700&family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: Arial;
+  padding: 20px;
+}
+
+/* FAQ card */
+.question {
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 15px 18px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: 0.2s ease;
+  background: #fff;
+}
+
+/* hover effect */
+.question:hover {
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+
+/* title */
+.q-title {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* answer hidden by default */
+.answer {
+  margin-top: 10px;
+  line-height: 1.5;
+  font-size: 15px;
+  display: none;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+/* open state */
+.question.open .answer {
+  display: block;
+}
+
+/* fade animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.label {
+  font-weight: bold;
+}
+</style>
+
+</head>
+
+<body>
+
 <h2>Questions fréquentes</h2>
 
 <div class="question">
   <div class="q-title">
     1. Qu’est-ce qu’Ibis French ?
-    <span class="box"></span>
-    What is Ibis French?
+    <br>What is Ibis French?
   </div>
   <div class="answer">
     <span class="label">FR:</span> Ibis French est une plateforme en libre accès, conçue par des étudiants, pour des étudiants. Elle vise à soutenir la pratique et le renforcement de la grammaire française grâce à des activités interactives.<br>
@@ -35,8 +102,7 @@ input { width: 120px; margin: 5px; }
 <div class="question">
   <div class="q-title">
     2. Puis-je utiliser Ibis French de manière autonome ?
-    <span class="box"></span>
-    Can I use it independently?
+    <br>Can I use it independently?
   </div>
   <div class="answer">
     <span class="label">FR:</span> Ibis French peut être utilisé de manière autonome par tous les étudiants souhaitant renforcer leurs compétences en grammaire française. Toutefois, le vocabulaire et le contenu sont alignés sur le cours FRE 202 Intermediate French II à l’Université de Miami.<br>
@@ -47,8 +113,7 @@ input { width: 120px; margin: 5px; }
 <div class="question">
   <div class="q-title">
     3. Existe-t-il un soutien ?
-    <span class="box"></span>
-    Is there support available?
+    <br>Is there support available?
   </div>
   <div class="answer">
     <span class="label">FR:</span> Pour toute question concernant le contenu du cours ou les devoirs, veuillez contacter votre professeur de français. Vous pouvez également contacter la Dre Viviana Pezzullo à vxp478@miami.edu<br>
@@ -59,20 +124,18 @@ input { width: 120px; margin: 5px; }
 <div class="question">
   <div class="q-title">
     4. Puis-je donner mon avis ?
-    <span class="box"></span>
-    Can I give feedback?
+    <br>Can I give feedback?
   </div>
   <div class="answer">
-    <span class="label">FR:</span> Absolument!! Vos retours sont les bienvenus et très appréciés. Pour partager des suggestions ou signaler un problème, veuillez contacter la Dre Viviana Pezzullo à vxp478@miami.edu<br>
-    <span class="label">EN:</span> Absolutely!! Feedback is highly encouraged and appreciated. To share suggestions or report issues, please contact Dr. Viviana Pezzullo at vxp478@miami.edu
+    <span class="label">FR:</span> Vos retours sont les bienvenus et très appréciés. Pour partager des suggestions ou signaler un problème, veuillez contacter la Dre Viviana Pezzullo.<br>
+    <span class="label">EN:</span> Feedback is highly encouraged and appreciated. To share suggestions or report issues, please contact Dr. Viviana Pezzullo.
   </div>
 </div>
 
 <div class="question">
   <div class="q-title">
     5. Dois-je créer un compte ?
-    <span class="box"></span>
-    Do I need an account?
+    <br>Do I need an account?
   </div>
   <div class="answer">
     <span class="label">FR:</span> Non, Ibis French ne nécessite pas la création d’un compte. La plateforme est librement accessible à tous les utilisateurs.<br>
@@ -83,14 +146,21 @@ input { width: 120px; margin: 5px; }
 <div class="question">
   <div class="q-title">
     6. Comment soumettre mes devoirs ?
-    <span class="box"></span>
-    How do I submit homework?
+    <br>How do I submit homework?
   </div>
   <div class="answer">
-    <span class="label">FR:</span> À la fin de chaque section, après avoir cliqué sur « Verify », vous serez invité à entrer votre nom et à télécharger un fichier. Téléchargez le fichier pour chaque section assignée et déposez-le sur Canvas selon les instructions.<br>
-    <span class="label">EN:</span> At the end of each section, after clicking “Verify,” you will be prompted to enter your name and download a file. Download the file for each assigned section and upload it to Canvas as instructed.
+    <span class="label">FR:</span> À la fin de chaque section, cliquez sur “Verify”, entrez votre nom et téléchargez le fichier. Ensuite, déposez-le sur Canvas.<br>
+    <span class="label">EN:</span> At the end of each section, click “Verify,” enter your name, download the file, and upload it to Canvas.
   </div>
 </div>
+
+<script>
+document.querySelectorAll(".question").forEach(item => {
+  item.addEventListener("click", () => {
+    item.classList.toggle("open");
+  });
+});
+</script>
 
 </body>
 </html>
