@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Exercices - Pronoms</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    p { margin-bottom: 18px; line-height: 1.6; font-size: large;}
+    input { width: 120px; margin: 0 5px; }
+    .correct { color: #008000; }
+    .incorrect { color: #ff0000; }
+    button { margin-top: 0; padding: 10px 20px; font-size: 16px; cursor: pointer; background: #2e7d32; color: #fff; border: none; border-radius: 4px; }
+    .form-actions { display: flex; justify-content: flex-end; align-items: center; gap: 10px; margin-top: 20px; }
+    .nav-buttons { display: flex; gap: 10px; }
+    .nav-button { display: inline-flex; align-items: center; justify-content: center; padding: 10px 18px; background: #e8f5e9; color: #2e7d32; border-radius: 4px; text-decoration: none; font-weight: 600; margin-left: 950px;}
+    .nav-button:hover { background: #c8e6c9; }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Almendra+Display&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Dongle:wght@300;400;700&family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
+</head>
+
+<body oncontextmenu="return false" oncopy="return false" oncut="return false" onpaste="return false">
+    <header class="site-header">
+        <div class="logo"><a href="../index.html"><span class="logo-ibis">ibis</span> <span class="logo-french">FRENCH</span></a></div>
+        <nav class="header-nav">
+          <a class="nav-item" href="../a-propos.html">à propos</a>
+          <a class="nav-item" href="../faq.html">F.A.Q</a>
+          <a class="nav-item" href="../contact.html">nous contacter</a>
+          <a class="nav-item" href="https://bulletin.miami.edu/undergraduate-academic-programs/arts-sciences/modern-languages-literatures/french-ba/">Université de Miami</a>
+        </nav>
+    </header>
+
+    <main>
+      <!-- EXERCISE 1 -->
+        <div>
+            <h1>Exercise 1: Qui ou que?</h1>
+            <h2>Choisissez <strong>qui</strong> ou <strong>que</strong> pour chaque phrase.</h2>
+            <form id="exercise1">
+              <label>1. Le chef 
+                <select>
+                  <option value="">--</option>
+                  <option value="qui">qui</option>
+                  <option value="que">que</option>
+                </select> prépare les plats est très célèbre.
+              </label>
+              <br><br>
+              <label>2. La soupe 
+                <select>
+                  <option value="">--</option>
+                  <option value="qui">qui</option>
+                  <option value="que">que</option>
+                </select> nous avons goûtée était délicieuse.
+              </label>
+              <br><br>
+              <!-- Ajoutez les autres phrases ici -->
+              <button type="button" onclick="checkAnswers('exercise1')">Vérifier</button>
+              <p id="exercise1-summary"></p>
+            </form>
+
+        <!-- EXERCISE 2 -->
+            <h1>Exercise 2: Definitions et pronoms relatifs</h1>
+            <h2>Donnez des définitions avec les pronoms relatifs</h2>
+            <form id="exercise2">
+              <label>1. La ratatouille est un plat 
+                <select>
+                  <option value="">--</option>
+                  <option value="qui">qui</option>
+                  <option value="ce qui">ce qui</option>
+                  <option value="que">que</option>
+                  <option value="ce que">ce que</option>
+                </select> contient des légumes.
+              </label>
+              <br><br>
+              <label>2. La mousseline est une sauce 
+                <select>
+                  <option value="">--</option>
+                  <option value="qui">qui</option>
+                  <option value="ce qui">ce qui</option>
+                  <option value="que">que</option>
+                  <option value="ce que">ce que</option>
+                </select> accompagne souvent le poisson.
+              </label>
+              <br><br>
+              <!-- Ajoutez les autres phrases ici -->
+              <button type="button" onclick="checkAnswers('exercise2')">Vérifier</button>
+              <p id="exercise2-summary"></p>
+            </form>
+        <!-- EXERCISE 3 -->
+            <h1>Exercice 3 : Cuisine avec des pronoms</h1>
+            <h2>Remplissez les espaces vides (Paul Bocuse)</h2>
+            <form id="exercise3">
+              <label>1. Paul Bocuse était un chef français célèbre 
+                <select>
+                  <option value="">--</option>
+                  <option value="qui">qui</option>
+                  <option value="que">que</option>
+                </select> a révolutionné la gastronomie.
+              </label>
+              <br><br>
+              <label>2. Il dirigeait un restaurant à Lyon 
+                <select>
+                  <option value="">--</option>
+                  <option value="où">où</option>
+                  <option value="que">que</option>
+                  <option value="qui">qui</option>
+                </select> de nombreux jeunes chefs venaient apprendre.
+              </label>
+              <br><br>
+              <!-- Ajoutez les autres phrases ici -->
+              <button type="button" onclick="checkAnswers('exercise3')">Vérifier</button>
+              <p id="exercise3-summary"></p>
+            </form>
+          
+            <script>
+            function checkAnswers(formId) {
+              const form = document.getElementById(formId);
+              const selects = form.querySelectorAll("select");
+              let filledCount = 0;
+              let emptyCount = 0;
+          
+              selects.forEach(select => {
+                if (select.value === "") {
+                  select.classList.remove("filled");
+                  select.classList.add("empty");
+                  emptyCount++;
+                } else {
+                  select.classList.remove("empty");
+                  select.classList.add("filled");
+                  filledCount++;
+                }
+              });
+          
+              const summary = document.getElementById(`${formId}-summary`);
+              summary.textContent = `Champs remplis : ${filledCount}, champs vides : ${emptyCount}`;
+            }
+            </script>
+        </div>
+    </main>
+</body>
+</html>
