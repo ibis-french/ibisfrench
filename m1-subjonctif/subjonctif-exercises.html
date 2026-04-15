@@ -378,6 +378,111 @@
             }
             </script>
         </div>
+
+        
+
+        <!-- --------------------CSV DOWNLOAD SECTION-------------------- -->
+        <div style="margin-top: 60px; padding: 20px; border-top: 2px solid #ddd;">
+            <h2 style="font-size: 1.5rem;">Télécharger votre rapport</h2>
+            <label for="studentName" style="display: block; margin-bottom: 10px; font-size: 1.3rem;">Votre nom:</label>
+            <input id="studentName" placeholder="Entrez votre nom" style="margin-bottom:15px; padding:8px; font-size: 1.1rem; width: 250px;">
+            <br>
+            <button type="button" onclick="downloadCSV()" style="padding: 12px 24px; font-size: 1.2rem; cursor: pointer; background: #2e7d32; color: #fff; border: none; border-radius: 4px;">Télécharger</button>
+        </div>
     </main>
-</body>
-</html>
+<!-- ----------CSV DOWNLOAD SCRIPT---------- -->
+    <script>
+    function downloadCSV() {
+      const studentName = document.getElementById("studentName").value || "Étudiant";
+
+      // Prepare CSV header
+      const data = [
+        ["Nom de l'étudiant", studentName],
+        [],
+        ["Exercice 1: Subjonctif ou Indicatif"]
+      ];
+
+      // Exercise 1: Subjonctif ou Indicatif
+      const answers1 = {
+        1: "S", 2: "I", 3: "S", 4: "I", 5: "S",
+        6: "I", 7: "S", 8: "S", 9: "I", 10: "S"
+      };
+
+      let score1 = 0;
+      data.push(["Question", "Réponse de l'étudiant", "Réponse correcte"]);
+
+      const selects1 = document.querySelectorAll('#exerciseForm1 select');
+      selects1.forEach((select, index) => {
+        let user = select.value || "";
+        let correct = answers1[index + 1];
+        if(user === correct) score1++;
+        data.push(["Question " + (index + 1), user, correct]);
+      });
+      data.push(["Score", score1 + " / 10"]);
+      data.push([]); // Empty line before next exercise
+
+      // Exercise 2: Complétez avec le verbe
+      data.push(["Exercice 2: Complétez avec le verbe"]);
+
+      const answers2 = {
+        1: "vient", 2: "fasses", 3: "comprend", 4: "pleuve",
+        5: "êtes", 6: "ayons", 7: "disent", 8: "réponde",
+        9: "oublies", 10: "finissiez"
+      };
+
+      let score2 = 0;
+      data.push(["Question", "Réponse de l'étudiant", "Réponse correcte"]);
+
+      const inputs2 = document.querySelectorAll('#exerciseForm2 input');
+      inputs2.forEach((input, index) => {
+        let user = input.value || "";
+        let correct = answers2[index + 1];
+        if(user.toLowerCase().trim() === correct) score2++;
+        data.push(["Question " + (index + 1), user, correct]);
+      });
+      data.push(["Score", score2 + " / 10"]);
+      data.push([]); // Empty line before next exercise
+
+      // Exercise 3: Remplissez les blancs
+      data.push(["Exercice 3: Remplissez les blancs"]);
+
+      const answers3 = {
+        q1: "fassiez", q2: "viennent", q3: "ait", q4: "saches",
+        q5: "puisse", q6: "soit", q7: "veuillent", q8: "alliez",
+        q9: "prenne", q10: "servions", q11: "ayez",
+        q12: "soit", q13: "fassent", q14: "devienne"
+      };
+
+      let score3 = 0;
+      data.push(["Question", "Réponse de l'étudiant", "Réponse correcte"]);
+
+      for (let key in answers3) {
+        let userAnswer = document.getElementById(key).value.toLowerCase().trim();
+        let correct = answers3[key];
+        if (userAnswer === correct) score3++;
+        data.push([key, userAnswer, correct]);
+      }
+      data.push(["Score", score3 + " / 14"]);
+      data.push([]);
+
+      // Total score
+      const totalPoints = score1 + score2 + score3;
+      const totalMax = 10 + 10 + 14;
+      data.push(["Score total", totalPoints + " / " + totalMax]);
+
+      // Convert to CSV string
+      const csvContent = data.map(row => row.map(field => `"${field}"`).join(",")).join("\n");
+
+      // Create blob and download
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "subjonctif_exercises_" + studentName + ".csv";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+    </script>
