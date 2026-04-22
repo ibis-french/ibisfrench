@@ -127,14 +127,17 @@
             <br><br>
 
             <div class="form-actions">
-                <button type="button" onclick="checkAnswers()">Vérifier</button>
+                <button type="button" onclick="checkAnswers1()">Vérifier</button>
             </div>
 
             </form>
 
+            <h3 id="result1"></h3>
+
             <script>
-            function checkAnswers() {
+            function checkAnswers1() {
             const selects = document.querySelectorAll('#exerciseForm select');
+            let score = 0;
 
             selects.forEach(select => {
                 const correctAnswer = select.dataset.answer;
@@ -147,12 +150,14 @@
                 else if (select.value === correctAnswer) {
                 feedback.textContent = " ✔ Correct";
                 feedback.className = "feedback correct";
+                score++;
                 } 
                 else {
                 feedback.textContent = " ✖ Incorrect";
                 feedback.className = "feedback incorrect";
                 }
             });
+            document.getElementById("result1").innerHTML = "Score: " + score + " / 7";
             }
             </script>
         </div>
@@ -180,14 +185,15 @@
             j'<input type="text" id="q15"> pense souvent quand je cousine.</p>
 
             <div class="form-actions">
-                <button type="button" onclick="checkAnswers()">Vérifier</button>
+                <button type="button" onclick="checkAnswers2()">Vérifier</button>
+                <a href="pronoms-explication-grammaire.html" style="display: inline-flex; align-items: center; justify-content: center; padding: 8px 16px; background: #274820; color: #fff; border-radius: 4px; text-decoration: none; font-weight: 600; font-size: 0.95rem;">voir l'explication grammaticale</a>
             </div>
             </form>
 
-            <h3 id="result"></h3>
+            <h3 id="result2"></h3>
 
             <script>
-            function checkAnswers() {
+            function checkAnswers2() {
 
             const answers = {
                 q1: ["l'", "l’"],
@@ -229,12 +235,92 @@
                 }
             }
 
-            document.getElementById("result").innerHTML =
+            document.getElementById("result2").innerHTML =
                 "Score: " + score + " / 15";
             }
             </script>
         </div>
-        <!-- --------END EXERCISES-------- -->
+
+        <!-- --------------------CSV DOWNLOAD SECTION-------------------- -->
+        <div style="margin-top: 60px; padding: 20px; border-top: 2px solid #ddd;">
+            <h2 style="font-size: 1.5rem;">Télécharger votre rapport</h2>
+            <label for="studentName" style="display: block; margin-bottom: 10px; font-size: 1.3rem;">Votre nom:</label>
+            <input id="studentName" placeholder="Entrez votre nom" style="margin-bottom:15px; padding:8px; font-size: 1.1rem; width: 250px;">
+            <br>
+            <button type="button" onclick="downloadCSV()" style="padding: 12px 24px; font-size: 1.2rem; cursor: pointer; background: #2e7d32; color: #fff; border: none; border-radius: 4px;">Télécharger</button>
+        </div>
     </main>
-</body>
-</html>
+<!-- ----------CSV DOWNLOAD SCRIPT---------- -->
+    <script>
+    function downloadCSV() {
+      const studentName = document.getElementById("studentName").value || "Étudiant";
+
+      // Prepare CSV header
+      const data = [
+        ["Nom de l'étudiant", studentName],
+        [],
+        ["Exercice 1: Selectionnez le bon pronom"]
+      ];
+
+      // Exercise 1: Selectionnez le bon pronom
+      const answers1 = {
+        1: "la", 2: "les", 3: "les", 4: "y", 5: "leur",
+        6: "en", 7: "la"
+      };
+
+      let score1 = 0;
+      data.push(["Question", "Réponse de l'étudiant", "Réponse correcte"]);
+
+      const selects1 = document.querySelectorAll('#exerciseForm select');
+      selects1.forEach((select, index) => {
+        let user = select.value || "";
+        let correct = answers1[index + 1];
+        if(user === correct) score1++;
+        data.push(["Question " + (index + 1), user, correct]);
+      });
+      data.push(["Score", score1 + " / 7"]);
+      data.push([]); // Empty line before next exercise
+
+      // Exercise 2: Taper dans les blancs
+      data.push(["Exercice 2: Taper dans les blancs"]);
+
+      const answers2 = {
+        q1: "l'", q2: "la", q3: "les", q4: "lui",
+        q5: "lui", q6: "les", q7: "leur", q8: "en",
+        q9: "y", q10: "en", q11: "m'y", q12: "lui",
+        q13: "les", q14: "les", q15: "y"
+      };
+
+      let score2 = 0;
+      data.push(["Question", "Réponse de l'étudiant", "Réponse correcte"]);
+
+      for (let key in answers2) {
+        let userAnswer = document.getElementById(key).value.toLowerCase().trim();
+        let correct = answers2[key];
+        if (userAnswer === correct) score2++;
+        data.push([key, userAnswer, correct]);
+      }
+      data.push(["Score", score2 + " / 15"]);
+      data.push([]);
+
+      // Total score
+      const totalPoints = score1 + score2;
+      const totalMax = 7 + 15;
+      data.push(["Score total", totalPoints + " / " + totalMax]);
+
+      // Convert to CSV string
+      const csvContent = data.map(row => row.map(field => `"${field}"`).join(",")).join("\n");
+
+      // Create blob and download
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "pronoms_exercises_" + studentName + ".csv";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+    </script>
